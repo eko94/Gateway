@@ -1,0 +1,45 @@
+{
+  "roles": [
+    {
+      "role": "Catering",
+      "permissions": [
+        { "permission": "catering.orden-trabajo:all" },
+        { "permission": "catering.usuario:all" }
+      ]
+    },
+    {
+      "role": "Commercial",
+      "permissions": [
+        { "permission": "commercial:all" }
+      ]
+    },
+    {
+      "role": "Nutricion",
+      "permissions": [
+        { "permission": "nutricion:all" }
+      ]
+    },
+    {
+      "role": "Logistica",
+      "permissions": [
+        { "permission": "logistica:all" }
+      ]
+    }
+  ],
+  "defaultUser": {
+    "userroles" : [
+      {
+        "role": "Catering"
+      },
+      {
+        "role": "Commercial"
+      },
+      {
+        "role": "Nutricion"
+      },
+      {
+        "role": "Logistica"
+      }
+    ]
+  }
+}

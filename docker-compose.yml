@@ -1,0 +1,64 @@
+services:
+  api-gateway:
+    image: eko1394/api-gateway:1.0.0
+    ports:
+      - 5272:8080
+    depends_on:
+      - identity
+    networks:
+      - identity-net    
+    restart: on-failure
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:5272/swagger"]
+        interval: 15s
+        timeout: 10s
+        retries: 3
+        start_period: 45s
+  identity:
+    image: eko1394/identity:1.0.0
+    ports:
+      - 8080:8080
+    depends_on:
+      - identity-db
+      - hashicorp-consul
+    networks:
+      - identity-net
+    restart: on-failure
+    healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:7081/swagger"]
+        interval: 15s
+        timeout: 10s
+        retries: 3
+        start_period: 45s
+  # identity-migration:
+  #   image: eko1394/identity-migration:1.0.0
+  #   depends_on:
+  #     - identity-db
+  #   networks:
+  #     - identity-net
+  identity-db:
+    image: eko1394/identity-db:1.0.0
+    ports:
+      - 1433:1433
+    volumes:
+      - identity-db-data:/var/opt/mssql
+    networks:
+      - identity-net
+    restart: on-failure
+    environment:
+      SA_PASSWORD: "${SA_PASSWORD}"
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools/bin/sqlcmd", "-U", "sa", "-P" , "${SA_PASSWORD}", "-Q", "select 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+  hashicorp-consul:
+    image: hashicorp/consul:latest
+    ports:
+      - 8500:8500
+    networks:
+      - identity-net
+volumes:
+  identity-db-data:
+networks:
+  identity-net:

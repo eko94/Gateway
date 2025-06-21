@@ -1,0 +1,17 @@
+# Use the official Microsoft SQL Server image
+FROM mcr.microsoft.com/mssql/server:2022-latest AS base
+
+# Set environment variables
+ENV ACCEPT_EULA=Y
+ENV SA_PASSWORD=Password123***
+ENV MSSQL_PID=Express
+ENV MSSQL_TCP_PORT=1433
+
+# Expose the SQL Server port
+EXPOSE 1433
+
+COPY Identity.Infrastructure/Migrations_scripts/creation_script.sql /scripts/.
+COPY Identity.Infrastructure/Migrations_scripts/migration_script.sql /scripts/.
+
+# Start SQL Server and execute the migration script
+CMD /opt/mssql/bin/sqlservr & sleep 45 && /opt/mssql-tools18/bin/sqlcmd -U sa -P Password123*** -C -e -i /scripts/creation_script.sql && /opt/mssql-tools18/bin/sqlcmd -U sa -P Password123*** -C -e -i /scripts/migration_script.sql & sleep infinity

@@ -1,0 +1,32 @@
+[
+  {
+    "Mnemonic": "catering.orden-trabajo:all",
+    "Module": "Catering",
+    "Name": "Orden Trabajo",
+    "Description": "Allows the user to manage Catering - Orden Trabajo."
+  },
+  {
+    "Mnemonic": "catering.usuario:all",
+    "Module": "Catering",
+    "Name": "Usuario",
+    "Description": "Allows the user to manage Catering - Usuario."
+  },
+  {
+    "Mnemonic": "commercial:all",
+    "Module": "Commercial",
+    "Name": "Commercial",
+    "Description": "Allows the user to manage Commercial."
+  },
+  {
+    "Mnemonic": "nutricion:all",
+    "Module": "Nutricion",
+    "Name": "Nutricion",
+    "Description": "Allows the user to manage Nutricion."
+  },
+  {
+    "Mnemonic": "logistica:all",
+    "Module": "Logistica",
+    "Name": "Logistica",
+    "Description": "Allows the user to manage Logistica."
+  }
+] 
