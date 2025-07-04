@@ -14,7 +14,9 @@ namespace ApiGateway.WebApp.Routes
             [
                 .. IdentityRoutes.Routes,
                 .. CateringRoutes.Routes,
-                .. CommercialRoutes.Routes
+                .. CommercialRoutes.Routes,
+                .. NutricionRoutes.Routes,
+                .. LogisticaRoutes.Routes
             ];
             RouteList = new ReadOnlyCollection<ScopeAccessRule>(list);
         }
