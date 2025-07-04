@@ -51,7 +51,7 @@ public class ConsulYarpConfigProvider : IProxyConfigProvider
                 {
                     { serviceName , new Yarp.ReverseProxy.Configuration.DestinationConfig
                         {
-                            Address = $"http://{serviceEntry.Address}:{serviceEntry.Port}"
+                            Address = $"{serviceEntry.Address}:{serviceEntry.Port}"
                         } 
                     }
                 };

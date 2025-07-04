@@ -9,24 +9,9 @@ namespace ApiGateway.WebApp.Routes.Modules
     {
         public static readonly IEnumerable<ScopeAccessRule> Routes = new ReadOnlyCollection<ScopeAccessRule>(new List<ScopeAccessRule>
         {
-            new ScopeAccessRule
-            {
-                RouteTemplate = "/identity:8080/health",
-                HttpMethod = "GET",
-                AllowAnonymous = true
-            },
-            new ScopeAccessRule
-            {
-                RouteTemplate = "/api/identity/security/login",
-                HttpMethod = "POST",
-                AllowAnonymous = true
-            },
-            new ScopeAccessRule
-            {
-                RouteTemplate = "/api/identity/security/register-user",
-                HttpMethod = "POST",
-                AllowAnonymous = true
-            }
+            new ScopeAccessRule { RouteTemplate = "/identity:8080/health", HttpMethod = "GET", AllowAnonymous = true },
+            new ScopeAccessRule { RouteTemplate = "/api/identity/security/login", HttpMethod = "POST", AllowAnonymous = true },
+            new ScopeAccessRule { RouteTemplate = "/api/identity/security/register-user", HttpMethod = "POST", AllowAnonymous = true }
         });
     }
 }
