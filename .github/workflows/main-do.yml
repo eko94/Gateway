@@ -1,0 +1,47 @@
+name: Build Docker and Deploy to DigitalOcean
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Build Identity Docker image
+        run: docker build -f Dockerfile-identity -t eko1394/identity:1.0.0 .
+
+      - name: Build Identity DB Docker image
+        run: docker build -f Dockerfile-db -t eko1394/identity-db:1.0.0 .
+
+      - name: Build API Gateway Docker image
+        run: docker build -f Dockerfile-gateway -t eko1394/api-gateway:1.0.0 .
+
+      - name: Login to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Push Identity image
+        run: docker push eko1394/identity:1.0.0
+
+      - name: Push Identity DB image
+        run: docker push eko1394/identity-db:1.0.0
+
+      - name: Push Gateway Worker image
+        run: docker push eko1394/api-gateway:1.0.0
+
+      - name: Deploy to DigitalOcean via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DO_HOST }}
+          username: ${{ secrets.DO_USER }}
+          key: ${{ secrets.DO_SSH_KEY }}
+          script: |            
+            cd Nurtricenter
+            git pull 
+            docker compose down
+            docker compose pull
+            docker compose up -d
